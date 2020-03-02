@@ -6,15 +6,14 @@ import numpy as np
 def perceptron_creater(w, b):
     def perceptron(x):
         return 1 if np.sum(x * w) + b > 0 else 0
+    perceptron.__size__ = w.size
     return perceptron
 
-# 两输入-两层感知机构造器
-def two_l_two_in_perceptron_creater(perceptron1, perceptron2, combine):
+# 多输入-两层感知机构造器
+def two_l_perceptron_creater(perceptrons, combine):
     def two_l_perceptron(x):
-        s1 = perceptron1(x)
-        s2 = perceptron2(x)
-        s  = np.array([s1, s2])
-        return combine(s)
+        s = map(lambda p: p(x), perceptrons)
+        return combine(np.array(list(s)))
     return two_l_perceptron
 
 wAND = np.array([0.5, 0.5])
@@ -29,7 +28,7 @@ wNAND = np.array([-0.5, -0.5])
 NAND = perceptron_creater(wNAND, 0.7)
 NAND.__name__ = "NAND"
 
-XOR = two_l_two_in_perceptron_creater(NAND, OR, AND)
+XOR = two_l_perceptron_creater([NAND, OR], AND)
 XOR.__name__ = "XOR"
 
 # 测试
