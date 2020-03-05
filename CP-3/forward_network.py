@@ -1,6 +1,7 @@
 import numpy as np
 from active_functions import sigmod_function as sigmod
-from active_functions import identity_function as identity
+# from active_functions import identity_function as identity
+from active_functions import softmax_function as softmax
 
 class Network:
     def __init__(self):
@@ -35,26 +36,3 @@ class Layer:
         self.weight = weight
         self.bias = bias
         self.active = active
-
-network = Network()
-
-layer1 = Layer(
-    weight = np.array([[0.1, 0.3, 0.5], [0.2, 0.4, 0.6]]),
-    bias = np.array([0.1, 0.2, 0.3]),
-    active = sigmod
-)
-layer2 = Layer(
-    weight = np.array([[0.1, 0.4], [0.2, 0.5], [0.3, 0.6]]),
-    bias = np.array([0.1, 0.2]),
-    active = sigmod
-)
-layer3 = Layer(
-    weight = np.array([[0.1, 0.3], [0.2, 0.4]]),
-    bias = np.array([0.1, 0.2]),
-    active = identity
-)
-
-network.addLayer(layer1, layer2, layer3)
-
-y = network.forward(np.array([1.0, 0.5]))
-print(y)

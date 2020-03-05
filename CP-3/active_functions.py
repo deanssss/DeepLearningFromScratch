@@ -15,3 +15,10 @@ def relu_function(x):
 # 恒等函数
 def identity_function(x):
     return x
+
+# softmax函数
+def softmax_function(x):
+    max = np.max(x)
+    exp_a = np.exp(x - max) # 溢出处理
+    sum = np.sum(exp_a)
+    return exp_a/sum

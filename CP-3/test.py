@@ -20,3 +20,27 @@ plt.title("active functions")
 plt.legend() # 显示图示标签
 
 plt.show()
+
+# Test Network
+network = Network()
+
+layer1 = Layer(
+    weight = np.array([[0.1, 0.3, 0.5], [0.2, 0.4, 0.6]]),
+    bias = np.array([0.1, 0.2, 0.3]),
+    active = sigmod
+)
+layer2 = Layer(
+    weight = np.array([[0.1, 0.4], [0.2, 0.5], [0.3, 0.6]]),
+    bias = np.array([0.1, 0.2]),
+    active = sigmod
+)
+layer3 = Layer(
+    weight = np.array([[0.1, 0.3], [0.2, 0.4]]),
+    bias = np.array([0.1, 0.2]),
+    active = softmax
+)
+
+network.addLayer(layer1, layer2, layer3)
+
+y = network.forward(np.array([1.0, 0.5]))
+print(y)
